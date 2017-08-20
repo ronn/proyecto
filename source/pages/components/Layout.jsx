@@ -1,8 +1,7 @@
 import React from 'react'
 
-function Layout(props) {
-    return(
-        <html>
+const Layout = props => (
+    <html>
         <head>
             <meta charSet="utf-8"/>
             <title>{props.title}</title>
@@ -16,8 +15,7 @@ function Layout(props) {
             />
             <script src="http://localhost:3001/app.js"/>
         </body>
-        </html>
-    )
-}
+    </html>
+)
 
 export default Layout

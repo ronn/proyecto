@@ -6,7 +6,7 @@ import { StaticRouter } from 'react-router-dom'
 import Pages from './pages/containers/Page.jsx'
 import Layout from './pages/components/Layout.jsx'
 
-function requestHandler(request, response) {
+const requestHandler = (request, response) => {
     const context = {}
 
     const html = renderToString(

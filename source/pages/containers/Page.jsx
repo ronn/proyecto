@@ -10,33 +10,31 @@ import Post from './Post.jsx'
 import Profile from './Profile.jsx'
 import Error404 from './Error404.jsx'
 
-function Pages() {
-    return(
-        <main role="application">
-            <Switch>
-                {/*Lista de artículos*/}
-                <Route
-                    path="/"
-                    exact
-                    component={Home}
-                />
-                {/*Detalle de artículo*/}
-                <Route
-                    path="/post/:id"
-                    exact
-                    component={Post}
-                />
-                {/*Perfil de User*/}
-                <Route
-                    path="/user/:id"
-                    exact
-                    component={Profile}
-                />
-                {/*Error 404*/}
-                <Route component={Error404} />
-            </Switch>
-        </main>
-    )
-}
+const Pages = () => (
+    <main role="application">
+        <Switch>
+            {/*Lista de artículos*/}
+            <Route
+                path="/"
+                exact
+                component={Home}
+            />
+            {/*Detalle de artículo*/}
+            <Route
+                path="/post/:id"
+                exact
+                component={Post}
+            />
+            {/*Perfil de User*/}
+            <Route
+                path="/user/:id"
+                exact
+                component={Profile}
+            />
+            {/*Error 404*/}
+            <Route component={Error404} />
+        </Switch>
+    </main>
+)
 
 export default Pages
