@@ -12,7 +12,7 @@ const api = {
         },
         async getSingle(id = 1){
             const response = await fetch(`${baseUrl}/posts/${id}`)
-            return getDataToReturn(response);
+            return getData(response);
         },
         async getCommments(id = 1){
             const response = await fetch(`${baseUrl}/posts/${id}/comments`)
