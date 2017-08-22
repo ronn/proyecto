@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import styles from './Header.css'
 
 const Header = () => (
-    <header className="styles.header">
+    <header className={styles.header}>
         <h1>
             Mi primera app con React
         </h1>
