@@ -1,4 +1,5 @@
 import React from 'react'
+import Header from "../../shared/components/Header.jsx"
 
 import {
     Route,
@@ -12,6 +13,7 @@ import Error404 from './Error404.jsx'
 
 const Pages = () => (
     <main role="application">
+        <Header/>
         <Switch>
             {/*Lista de artículos*/}
             <Route

@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch'
 
-const baseUrl = 'http://jsonplaceholder.typicode.com';
+const baseUrl = 'http://jsonplaceholder.typicode.com'
 
 const getData = response => response.json()
 
