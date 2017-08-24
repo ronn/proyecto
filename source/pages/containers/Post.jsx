@@ -1,10 +1,10 @@
-import React, {Component} from "react";
+import React, { Component } from 'react';
 
-import PostBody from "../../posts/containers/Post.jsx"
-import Loading from "../../shared/components/Loading.jsx"
-import Comment from '../../comments/components/Comment.jsx'
+import PostBody from '../../posts/containers/Post'
+import Loading from '../../shared/components/Loading'
+import Comment from '../../comments/components/Comment'
 
-import api from "../../api.js";
+import api from '../../api';
 
 class Post extends Component{
 
@@ -19,7 +19,11 @@ class Post extends Component{
         }
     }
 
-    async componentDidMount(){
+    componentDidMount(){
+        this.initialFetch()
+    }
+
+    async initialFetch(){
         const [
             post,
             comments
@@ -30,7 +34,7 @@ class Post extends Component{
 
         const user = await api.users.getSingle(post.userId)
 
-        this.setState({
+        return this.setState({
             loading: false,
             post,
             user,
@@ -54,7 +58,7 @@ class Post extends Component{
                 <section>
                     {this.state.comments
                         .map(comment => (
-                            <Comment key={comment.id} {...comment}/>
+                            <Comment key={comment.id} {...comment} />
                         ))
                     }
                 </section>

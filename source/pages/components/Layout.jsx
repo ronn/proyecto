@@ -1,9 +1,9 @@
 import React from 'react'
 
 const Layout = props => (
-    <html>
+    <html lang="en">
         <head>
-            <meta charSet="utf-8"/>
+            <meta charSet="utf-8" />
             <title>{props.title}</title>
             <meta
                 name="viewport"
@@ -25,7 +25,7 @@ const Layout = props => (
                     __html: props.content
                 }}
             />
-            <script src="http://localhost:3001/app.js"/>
+            <script src="http://localhost:3001/app.js" />
         </body>
     </html>
 )

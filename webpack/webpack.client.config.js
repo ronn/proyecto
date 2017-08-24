@@ -2,13 +2,19 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const path = require('path')
 
 module.exports = {
-    entry: './source/client.js',
+    entry: './source/client.jsx',
     output: {
         filename: 'app.js',
         path: path.resolve(__dirname, '../built/statics')
     },
     module:{
         loaders: [
+            {
+                test: /\.jsx?$/,
+                loader: 'eslint-loader',
+                enforce: 'pre',
+                exclude: /node_modules/,
+            },
             {
                 test: /\.json$/,
                 loader: 'json-loader'
@@ -33,6 +39,9 @@ module.exports = {
         ]
     },
     target: 'web',
+    resolve: {
+        extensions: ['.js', '.jsx', '.css']
+    },
     plugins: [
         new ExtractTextPlugin({
             filename: '../statics/styles.css'

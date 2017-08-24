@@ -6,7 +6,6 @@ import api from '../../api'
 import styles from './Post.css'
 
 class Post extends Component{
-
     constructor(props){
         super(props)
 
@@ -17,11 +16,16 @@ class Post extends Component{
         }
     }
 
-    async componentDidMount(){
-        if(this.state.user && this.state.comments)
+    componentDidMount(){
+        this.initialFetch()
+    }
+
+    async initialFetch(){
+        if (this.state.user && this.state.comments){
             return this.setState({
                 loading: false
             })
+        }
 
         const [
             user,
@@ -31,7 +35,7 @@ class Post extends Component{
             !this.state.comments ? api.posts.getCommments(this.props.id) : Promise.resolve(null),
         ])
 
-        this.setState({
+        return this.setState({
             loading: false,
             user: user || this.state.user,
             comments: comments || this.state.comments
@@ -56,7 +60,7 @@ class Post extends Component{
                         </Link>
 
                         <span className={styles.comments}>
-                            {" "} Hay {this.state.comments.length} comentarios
+                            {' '} Hay {this.state.comments.length} comentarios
                         </span>
                     </div>
                 )}

@@ -24,11 +24,10 @@ const api = {
             const response = await fetch(`${baseUrl}/users/${id}`)
             return getData(response);
         },
-        async getPosts (id = 1){
+        async getPosts(id = 1){
             const response = await fetch(`${baseUrl}/posts/?userId=${id}`, {
-                headers : {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                headers: {
+                    'Content-Type': 'application/json'
                 }
 
             })

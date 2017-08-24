@@ -1,9 +1,9 @@
-import React, {Component} from "react"
+import React, { Component } from 'react'
 
-import api from "../../api.js"
+import api from '../../api'
 
-import Post from "../../posts/containers/Post.jsx"
-import Loading from "../../shared/components/Loading.jsx"
+import Post from '../../posts/containers/Post'
+import Loading from '../../shared/components/Loading'
 
 import styles from './Page.css'
 
@@ -21,14 +21,8 @@ class Home extends Component{
         this.handleScroll = this.handleScroll.bind(this)
     }
 
-    async componentDidMount(){
-        const posts = await api.posts.getList(this.state.page)
-
-        this.setState({
-            posts,
-            page: this.state.page + 1,
-            loading: false
-        })
+    componentDidMount(){
+        this.initialFetch()
 
         window.addEventListener('scroll', this.handleScroll)
     }
@@ -37,7 +31,17 @@ class Home extends Component{
         window.removeEventListener('scroll', this.handleScroll)
     }
 
-    handleScroll(event){
+    async initialFetch(){
+        const posts = await api.posts.getList(this.state.page)
+
+        this.setState({
+            posts,
+            page: this.state.page + 1,
+            loading: false
+        })
+    }
+
+    handleScroll(){
         if (this.state.loading) return null
 
         const scrolled = window.scrollY
@@ -47,7 +51,7 @@ class Home extends Component{
         if (!(scrolled + viewportHeight + 30 >= fullHeight))
             return null
 
-        this.setState({ loading: true }, async () => {
+        return this.setState({ loading: true }, async () => {
             try {
                 const posts = await api.posts.getList(this.state.page)
 
@@ -58,7 +62,7 @@ class Home extends Component{
                 })
             }catch (error){
                 console.error(error)
-                this.setState({ loading:false })
+                this.setState({ loading: false })
             }
         })
     }
@@ -69,10 +73,10 @@ class Home extends Component{
 
                 <section className={styles.list}>
                     {this.state.posts
-                        .map(post => <Post key={post.id} {...post}/>)
+                        .map(post => <Post key={post.id} {...post} />)
                     }
                     {this.state.loading && (
-                        <Loading/>
+                        <Loading />
                     )}
                 </section>
             </section>

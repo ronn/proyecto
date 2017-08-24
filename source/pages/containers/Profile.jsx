@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 
 import api from '../../api'
 
-import Post from '../../posts/containers/Post.jsx'
+import Post from '../../posts/containers/Post'
 
-import Loading from '../../shared/components/Loading.jsx'
+import Loading from '../../shared/components/Loading'
 
 class Profile extends Component{
 
@@ -18,7 +18,11 @@ class Profile extends Component{
         }
     }
 
-    async componentDidMount(){
+    componentDidMount(){
+        this.initialFetch()
+    }
+
+    async initialFetch(){
         const [
             user,
             posts
@@ -27,7 +31,7 @@ class Profile extends Component{
             api.users.getPosts(this.props.match.params.id)
         ])
 
-        this.setState({
+        return this.setState({
             user,
             posts,
             loading: false
@@ -36,7 +40,7 @@ class Profile extends Component{
 
     render(){
         if (this.state.loading){
-            return <Loading/>
+            return <Loading />
         }
 
         return(
@@ -45,31 +49,33 @@ class Profile extends Component{
 
                 <fieldset>
                     <legend>Basic info</legend>
-                    <input type="email" value={this.state.user.email} disabled/>
+                    <input type="email" value={this.state.user.email} disabled />
                 </fieldset>
 
                 {this.state.user.address && (
                     <fieldset>
                         <legend>Address</legend>
                         <address>
-                            {this.state.user.address.street}<br/>
-                            {this.state.user.address.suite}<br/>
-                            {this.state.user.address.city}<br/>
-                            {this.state.user.address.zipcode}<br/>
+                            {this.state.user.address.street}<br />
+                            {this.state.user.address.suite}<br />
+                            {this.state.user.address.city}<br />
+                            {this.state.user.address.zipcode}<br />
                         </address>
                     </fieldset>
                 )}
 
                 <section>
-                    {this.state.posts && (
-                        this.state.posts.map(post =>
-                            <Post
-                                key={post.id}
-                                {...post}
-                                user={this.state.user}
-                            />
-                        ))
-                     }
+                    {
+                        this.state.posts && (
+                            this.state.posts.map(post =>
+                                (<Post
+                                    key={post.id}
+                                    {...post}
+                                    user={this.state.user}
+                                />)
+                            )
+                        )
+                    }
                 </section>
             </section>
         )

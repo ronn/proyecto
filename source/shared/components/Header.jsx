@@ -9,13 +9,16 @@ const Header = () => (
             Mi primera app con React
         </h1>
 
-        <nav role="navigation" className={styles.navigation}>
+        <nav className={styles.navigation}>
             <Link to="/" className={styles.link}>
                 Home
             </Link>
-            <a className={styles.link}
+
+            <a
+                className={styles.link}
                 href="https://platzi.com"
                 target="_blank"
+                rel="noopener noreferrer"
             >
                 Platzi
             </a>
