@@ -1,9 +1,16 @@
 import React from 'react'
+import { FormattedHTMLMessage } from 'react-intl'
 
 const Comment = props => (
     <article id={`comment-${props.id}`}>
         <div>
-            By: <a href={`mailto:${props.email}`}>{props.name}</a>
+            <FormattedHTMLMessage
+                id="comment.meta.author"
+                values={{
+                    email: props.email,
+                    name: props.name
+                }}
+            />
         </div>
 
         <p>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { FormattedMessage } from 'react-intl'
 
 import api from '../../api'
 
@@ -70,7 +71,9 @@ class Home extends Component{
     render(){
         return(
             <section name="Home" className={styles.section}>
-
+                <h3>
+                    <FormattedMessage id="title.home" />
+                </h3>
                 <section className={styles.list}>
                     {this.state.posts
                         .map(post => <Post key={post.id} {...post} />)
