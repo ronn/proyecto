@@ -69,7 +69,7 @@ class Post extends Component{
                             />
                         </span>
                         <Link to={`/post/${this.props.id}`}>
-                            <FormattedMessage id="post.meta.readMore"/>
+                            <FormattedMessage id="post.meta.readMore" />
                         </Link>
                     </div>
                 )}

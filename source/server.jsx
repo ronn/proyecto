@@ -9,6 +9,10 @@ import messages from './messages.json'
 import Pages from './pages/containers/Page'
 import Layout from './pages/components/Layout'
 
+const domain = process.env.NODE_ENV === 'production'
+    ? 'https://ronn-react-sfs.now.sh'
+    : 'http://localhost:3001'
+
 const requestHandler = (request, response) => {
     const locale = request.headers['accept-language'].indexOf('es') >= 0 ? 'es' : 'en'
 
@@ -36,6 +40,7 @@ const requestHandler = (request, response) => {
             <Layout
                 title="Aplicación"
                 content={html}
+                domain={domain}
             />
         )
     )
