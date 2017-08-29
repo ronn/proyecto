@@ -3,8 +3,6 @@ import { FormattedMessage } from 'react-intl'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import api from '../../api'
-
 import Post from '../../posts/containers/Post'
 import Loading from '../../shared/components/Loading'
 
