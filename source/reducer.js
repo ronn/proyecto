@@ -7,7 +7,8 @@ const initialState = {
     comments: [],
     users: {}
 }
-function reducer(state = initialState, action = {}) {
+
+const reducer = (state = initialState, action = {}) => {
     switch (action.type){
     case 'SET_POST':
         return Object.assign({}, state, {

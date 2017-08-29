@@ -1,9 +1,7 @@
-function setPost(post) {
-    return {
-        type: 'SET_POST',
-        payload: post
-    }
-}
+const setPost = post => ({
+    type: 'SET_POST',
+    payload: post
+})
 
 export default {
     setPost

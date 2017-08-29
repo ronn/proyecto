@@ -90,12 +90,10 @@ class Home extends Component{
     }
 }
 
-function mapStateToProps(state){
-    return {
-        posts: state.posts.entities,
-        page: state.posts.page
-    }
-}
+const mapStateToProps = state => ({
+    posts: state.posts.entities,
+    page: state.posts.page
+})
 
 /* function mapDispatchToProps(dispatch, props) {
     return {
