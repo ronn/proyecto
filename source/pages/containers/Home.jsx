@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { FormattedMessage } from 'react-intl'
+import { connect } from 'react-redux'
 
 import api from '../../api'
 
@@ -8,14 +9,14 @@ import Loading from '../../shared/components/Loading'
 
 import styles from './Page.css'
 
+import actions from '../../actions'
+
 class Home extends Component{
 
     constructor(props){
         super(props)
 
         this.state = {
-            page: 1,
-            posts: [],
             loading: true
         }
 
@@ -33,13 +34,13 @@ class Home extends Component{
     }
 
     async initialFetch(){
-        const posts = await api.posts.getList(this.state.page)
+        const posts = await api.posts.getList(this.props.page)
 
-        this.setState({
-            posts,
-            page: this.state.page + 1,
-            loading: false
-        })
+        this.props.dispatch(
+            actions.setPost(posts)
+        )
+
+        this.setState({ loading: false })
     }
 
     handleScroll(){
@@ -54,11 +55,13 @@ class Home extends Component{
 
         return this.setState({ loading: true }, async () => {
             try {
-                const posts = await api.posts.getList(this.state.page)
+                const posts = await api.posts.getList(this.props.page)
+
+                this.props.dispatch(
+                    actions.setPost(posts)
+                )
 
                 this.setState({
-                    posts: this.state.posts.concat(posts),
-                    page: this.state.page + 1,
                     loading: false
                 })
             }catch (error){
@@ -75,7 +78,7 @@ class Home extends Component{
                     <FormattedMessage id="title.home" />
                 </h3>
                 <section className={styles.list}>
-                    {this.state.posts
+                    {this.props.posts
                         .map(post => <Post key={post.id} {...post} />)
                     }
                     {this.state.loading && (
@@ -87,4 +90,17 @@ class Home extends Component{
     }
 }
 
-export default Home
+function mapStateToProps(state){
+    return {
+        posts: state.posts.entities,
+        page: state.posts.page
+    }
+}
+
+/* function mapDispatchToProps(dispatch, props) {
+    return {
+        dispatch
+    }
+} */
+
+export default connect(mapStateToProps)(Home)
