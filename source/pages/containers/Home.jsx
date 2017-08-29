@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 import api from '../../api'
 
@@ -34,11 +35,7 @@ class Home extends Component{
     }
 
     async initialFetch(){
-        const posts = await api.posts.getList(this.props.page)
-
-        this.props.dispatch(
-            actions.setPost(posts)
-        )
+        await this.props.actions.postNextPage()
 
         this.setState({ loading: false })
     }
@@ -55,11 +52,7 @@ class Home extends Component{
 
         return this.setState({ loading: true }, async () => {
             try {
-                const posts = await api.posts.getList(this.props.page)
-
-                this.props.dispatch(
-                    actions.setPost(posts)
-                )
+                await this.props.actions.postNextPage()
 
                 this.setState({
                     loading: false
@@ -95,10 +88,8 @@ const mapStateToProps = state => ({
     page: state.posts.page
 })
 
-/* function mapDispatchToProps(dispatch, props) {
-    return {
-        dispatch
-    }
-} */
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(actions, dispatch)
+})
 
-export default connect(mapStateToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
