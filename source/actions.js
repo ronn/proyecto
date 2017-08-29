@@ -15,9 +15,8 @@ const setUser = user => ({
     payload: user
 })
 
-function postNextPage() {
-    console.log('async action')
-    return async (dispatch, getState) => {
+const postNextPage = () =>
+    async (dispatch, getState) => {
         const state = getState()
         const currentPage = state.posts.page
         const posts = await api.posts.getList(currentPage)
@@ -26,27 +25,24 @@ function postNextPage() {
 
         return posts
     }
-}
 
-function loadUser(userId) {
-    return async (dispatch) => {
+const loadUser = userId =>
+    async (dispatch) => {
         const user = await api.users.getSingle(userId)
 
         dispatch(setUser(user))
 
         return user
     }
-}
 
-function loadComments(postId) {
-    return async (dispatch) => {
+const loadComments = postId =>
+    async (dispatch) => {
         const comments = await api.posts.getCommments(postId)
 
         dispatch(setComments())
 
         return comments
     }
-}
 
 export default {
     setPost,
