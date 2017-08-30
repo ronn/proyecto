@@ -70,7 +70,8 @@ class Home extends Component{
                 </h3>
                 <section className={styles.list}>
                     {this.props.posts
-                        .map(post => <Post key={post.id} {...post} />)
+                        .map(post => <Post key={post.get('id')} {...post.toJS()} />)
+                        .toArray()
                     }
                     {this.state.loading && (
                         <Loading />
@@ -82,8 +83,7 @@ class Home extends Component{
 }
 
 const mapStateToProps = state => ({
-    posts: state.posts.entities,
-    page: state.posts.page
+    posts: state.get('posts').get('entities')
 })
 
 const mapDispatchToProps = dispatch => ({

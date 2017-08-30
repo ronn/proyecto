@@ -1,19 +1,20 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux-immutable'
+import { fromJS, Map as map } from 'immutable'
 
 const SET_POST = 'SET_POST'
 const SET_COMMENTS = 'SET_COMMENTS'
 const SET_USER = 'SET_USER'
 
-const initialState = {
+const initialState = fromJS({
     posts: {
         page: 1,
-        entities: []
+        entities: {}
     },
-    comments: [],
+    comments: {},
     users: {}
-}
+})
 
-const postsPageReducer = (state = initialState.posts.page, action = {}) => {
+const postsPageReducer = (state = initialState.get('posts').get('page'), action = {}) => {
     switch (action.type){
     case SET_POST:
         return state + 1
@@ -22,10 +23,14 @@ const postsPageReducer = (state = initialState.posts.page, action = {}) => {
     }
 }
 
-const postEntitiesReducer = (state = initialState.posts.entities, action = {}) => {
+const postEntitiesReducer = (state = initialState.get('posts').get('entities'), action = {}) => {
     switch (action.type){
     case SET_POST:
-        return state.concat(action.payload)
+        return action.payload
+            .reduce(
+                (posts, post) => posts.set(post.id, map(post)),
+                state
+            )
     default:
         return state
     }
@@ -36,21 +41,24 @@ const postReducer = combineReducers({
     entities: postEntitiesReducer
 })
 
-const commentsReducer = (state = initialState.comments, action = {}) => {
+const commentsReducer = (state = initialState.get('comments'), action = {}) => {
     switch (action.type){
     case SET_COMMENTS:
-        return state.concat(action.payload)
+        return action.payload !== undefined
+            ? action.payload.reduce(
+                (comments, comment) => comment.set(comment.id, map(comment)),
+                state
+            )
+            : state
     default:
         return state
     }
 }
 
-const userReducer = (state = initialState.users, action = {}) => {
+const userReducer = (state = initialState.get('users'), action = {}) => {
     switch (action.type){
     case SET_USER:
-        return Object.assign({}, state, {
-            [action.payload.id]: action.payload
-        })
+        return state.set(action.payload.id, map(action.payload))
     default:
         return state
     }
